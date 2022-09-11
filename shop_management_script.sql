@@ -168,3 +168,6 @@ ALTER TABLE Agreement_Details
 
 ALTER TABLE Agreement_Details
     ADD FOREIGN KEY (emp_id) REFERENCES employees_info (emp_id);
+    
+    commit;
+    
