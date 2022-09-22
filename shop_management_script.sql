@@ -278,4 +278,18 @@ INSERT INTO employees_info (EMP_ID,
              'Active',
              '123');
              
+         -- inserting 1 company data into company table    
+INSERT INTO company (COM_ID,
+                     COM_NAME,
+                     COM_ADDRESS,
+                     COM_PHONE,
+                     COM_EMAIL,
+                     COM_WEB)
+     VALUES (1,
+             'IDB Computer City',
+             'Agargaon, Dhaka',
+             '01700000000',
+             'idb@gmail.com',
+             'www.isdbw.com');
              
+  commit;
