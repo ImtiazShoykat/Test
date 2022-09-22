@@ -21,6 +21,7 @@ CREATE TABLE employees_info
     emp_job_title    VARCHAR2 (50),
     emp_hire_date    DATE,
     emp_image        BLOB,
+    emp_status       VARCHAR2 (20),
     emp_password     VARCHAR2 (30)
 );
 
@@ -171,3 +172,110 @@ ALTER TABLE Agreement_Details
     
     commit;
     
+    -- inserting 5 static data in employees_info table 
+    INSERT INTO employees_info (EMP_ID,
+                            EMP_NAME,
+                            EMP_PHONE,
+                            EMP_ADDRESS,
+                            EMP_EMAIL,
+                            EMP_GENDER,
+                            EMP_JOB_TITLE,
+                            EMP_HIRE_DATE,
+                            EMP_STATUS,
+                            EMP_PASSWORD)
+     VALUES (1,
+             'Imtiaz',
+             '01671526039',
+             'Airport, Dhaka',
+             'imtiaz.shoykat@gmail.com',
+             'Male',
+             'Developer',
+             SYSDATE,
+             'Active',
+             '0000');
+
+INSERT INTO employees_info (EMP_ID,
+                            EMP_NAME,
+                            EMP_PHONE,
+                            EMP_ADDRESS,
+                            EMP_EMAIL,
+                            EMP_GENDER,
+                            EMP_JOB_TITLE,
+                            EMP_HIRE_DATE,
+                            EMP_STATUS,
+                            EMP_PASSWORD)
+     VALUES (2,
+             'Inzam',
+             '0177744947',
+             'Mirpur, Dhaka',
+             'inzam@gmail.com',
+             'Male',
+             'Developer',
+             SYSDATE,
+             'Active',
+             '123');
+
+INSERT INTO employees_info (EMP_ID,
+                            EMP_NAME,
+                            EMP_PHONE,
+                            EMP_ADDRESS,
+                            EMP_EMAIL,
+                            EMP_GENDER,
+                            EMP_JOB_TITLE,
+                            EMP_HIRE_DATE,
+                            EMP_STATUS,
+                            EMP_PASSWORD)
+     VALUES (3,
+             'Imran',
+             '01671690237',
+             'Mirpur, Dhaka',
+             'imran@gmail.com',
+             'Male',
+             'Developer',
+             SYSDATE,
+             'Active',
+             '123');
+
+INSERT INTO employees_info (EMP_ID,
+                            EMP_NAME,
+                            EMP_PHONE,
+                            EMP_ADDRESS,
+                            EMP_EMAIL,
+                            EMP_GENDER,
+                            EMP_JOB_TITLE,
+                            EMP_HIRE_DATE,
+                            EMP_STATUS,
+                            EMP_PASSWORD)
+     VALUES (4,
+             'Habib',
+             '01729932286',
+             'Mirpur 1, Dhaka',
+             'habib@gmail.com',
+             'Male',
+             'Developer',
+             SYSDATE,
+             'Active',
+             '123');
+
+INSERT INTO employees_info (EMP_ID,
+                            EMP_NAME,
+                            EMP_PHONE,
+                            EMP_ADDRESS,
+                            EMP_EMAIL,
+                            EMP_GENDER,
+                            EMP_JOB_TITLE,
+                            EMP_HIRE_DATE,
+                            EMP_STATUS,
+                            EMP_PASSWORD)
+     VALUES (5,
+             'Shohel',
+             '01628446667',
+             'Mohammadpur, Dhaka',
+             'sohel@gmail.com',
+             'Male',
+             'Developer',
+             SYSDATE,
+             'Active',
+             '123');
+             
+             
