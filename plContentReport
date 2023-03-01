@@ -1,1 +1,163 @@
 
+DECLARE
+
+    vHead clob;
+    vBody clob;
+    vl clob;
+
+    COM_NAME         VARCHAR2 (100);
+    COM_ADDRESS      VARCHAR2 (100);
+    COM_PHONE        VARCHAR2 (50);
+    COM_EMAIL        VARCHAR2 (200);
+
+    AGR_START_DATE   VARCHAR2 (50);
+    AGR_END_DATE     VARCHAR2 (50);
+    Dur              NUMBER;
+    AGR_AMOUNT       NUMBER;
+    AGR_ADVANCE      NUMBER;
+    AGR_DUE          NUMBER;
+    MONTHLY_AMOUNT   NUMBER;
+
+    CONTACT_PERSON   VARCHAR2 (100);
+    OWNER_ADDRESS    VARCHAR2 (200);
+    OWNER_PHONE      VARCHAR2 (50);
+
+    SHOP_SIZE        VARCHAR2 (100);
+    RENT_RATE        varchar2(50);
+    SHOP_ZONE        VARCHAR2 (30);
+    SHOP_FLOOR       VARCHAR2 (20);
+    SHOP_NUMBER      number;
+    SHOP_NAME        VARCHAR2 (500);
+BEGIN
+      SELECT COMPANY_INFO.COM_NAME,
+             COMPANY_INFO.COM_ADDRESS,
+             COMPANY_INFO.COM_PHONE,
+             COMPANY_INFO.COM_EMAIL,
+             TO_CHAR (AGREEMENT_INFO.AGR_START_DATE, 'DD-MON-YYYY'),
+             TO_CHAR (AGREEMENT_INFO.AGR_END_DATE, 'DD-MON-YYYY'),
+             ROUND (
+                   (  (AGREEMENT_INFO.AGR_END_DATE)
+                    - (AGREEMENT_INFO.AGR_START_DATE))
+                 / 365
+                 * 12),
+             AGREEMENT_INFO.AGR_AMOUNT,
+             AGREEMENT_INFO.AGR_ADVANCE,
+             AGREEMENT_INFO.AGR_DUE,
+             AGREEMENT_INFO.MONTHLY_AMOUNT,
+             OWNER_DETAILS.OWNER_NAME,
+             OWNER_DETAILS.OWNER_ADDRESS,
+             OWNER_DETAILS.OWNER_PHONE,
+             SHOP_INFO.SHOP_SIZE,
+             to_char(SHOP_INFO.RENT_RATE,'fmL99G999D00'),
+             SHOP_INFO.SHOP_ZONE,
+             SHOP_INFO.SHOP_FLOOR,
+             SHOP_INFO.SHOP_NUMBER,
+             SHOP_INFO.SHOP_NAME
+        INTO COM_NAME,
+             COM_ADDRESS,
+             COM_PHONE,
+             COM_EMAIL,
+             AGR_START_DATE,
+             AGR_END_DATE,
+             Dur,
+             AGR_AMOUNT,
+             AGR_ADVANCE,
+             AGR_DUE,
+             MONTHLY_AMOUNT,
+             CONTACT_PERSON,
+             OWNER_ADDRESS,
+             OWNER_PHONE,
+             SHOP_SIZE,
+             RENT_RATE,
+             SHOP_ZONE,
+             SHOP_FLOOR, 
+             SHOP_NUMBER,
+             SHOP_NAME
+        FROM OWNER_DETAILS OWNER_DETAILS,
+             SHOP_INFO     SHOP_INFO,
+             COMPANY_INFO  COMPANY_INFO,
+             AGREEMENT_INFO AGREEMENT_INFO
+       WHERE     AGREEMENT_INFO.COM_ID = COMPANY_INFO.COM_ID
+             AND AGREEMENT_INFO.S_ID = SHOP_INFO.S_ID
+             AND SHOP_INFO.S_ID = OWNER_DETAILS.S_ID
+             AND AGREEMENT_INFO.OWNER_ID = OWNER_DETAILS.OWNER_ID
+             AND AGREEMENT_INFO.AGR_ID = 3
+    GROUP BY COMPANY_INFO.COM_NAME,
+             COMPANY_INFO.COM_ADDRESS,
+             COMPANY_INFO.COM_PHONE,
+             COMPANY_INFO.COM_EMAIL,
+             TO_CHAR (AGREEMENT_INFO.AGR_START_DATE, 'DD-MON-YYYY'),
+             TO_CHAR (AGREEMENT_INFO.AGR_END_DATE, 'DD-MON-YYYY'),
+             ROUND (
+                   (  (AGREEMENT_INFO.AGR_END_DATE)
+                    - (AGREEMENT_INFO.AGR_START_DATE))
+                 / 365
+                 * 12),
+             AGREEMENT_INFO.AGR_AMOUNT,
+             OWNER_DETAILS.OWNER_NAME,
+             OWNER_DETAILS.OWNER_ADDRESS,
+             OWNER_DETAILS.OWNER_PHONE,
+             AGREEMENT_INFO.AGR_ADVANCE,
+             AGREEMENT_INFO.AGR_DUE,
+             AGREEMENT_INFO.MONTHLY_AMOUNT,
+             SHOP_INFO.SHOP_SIZE,
+             SHOP_INFO.RENT_RATE,
+             SHOP_INFO.SHOP_ZONE,
+             SHOP_INFO.SHOP_FLOOR,
+             SHOP_INFO.SHOP_NUMBER,
+             SHOP_INFO.SHOP_NAME;
+
+
+vHead := '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>';
+
+vBody:='
+<h2 align="center" >AGREEMENT DEEDS</h2>
+<div class="div1">
+    <p>This Agreement is between 1st party <b>'||COM_NAME||' ' ||COM_ADDRESS||' '||COM_PHONE||' '||COM_EMAIL|| '</b> and 2nd party <b>' ||SHOP_NAME||'</b> on behalf <b>'||CONTACT_PERSON|| '</b> resided at <b>'
+    ||OWNER_ADDRESS || '</b> and contact number <b>' || OWNER_PHONE|| '</b>. where 2nd party agreed to rent the following Shopping Mall space on monthly basis. The Shop Number is <b>'||SHOP_NUMBER ||'</b> Which size <b>'|| SHOP_SIZE||'SQ FT</b> and per square ft rate is <b>'||RENT_RATE||'</b>TK, that is located on zone <b>'||SHOP_ZONE||'</b> and on <b>'||SHOP_FLOOR || '</b>th floor. Agreed to pay <b>' 
+    ||MONTHLY_AMOUNT|| '</b> TK monthly. The total amount of the agreement security money is <b> '
+    ||AGR_AMOUNT||'</b> TK. Where advance is <b> '||AGR_ADVANCE||'</b> Tk and due is <b> '||AGR_DUE ||'</b> Tk. Also the 2nd party agrees with following terms and conditions. 
+</br></br></br>
+1. The Agreement valid from <b> '||AGR_START_DATE||'</b> to <b>'||AGR_END_DATE||'</b> for <b>'||Dur||' months/year </b> and the security ammount <b>'||AGR_AMOUNT|| 'TK </b>is refundable at the end of the period.
+</br>2. Need to pay the monthly rent within 10 days of the current month
+</br>3. Also the 2nd party need to bear all utilities bills like water, gas, eletricty and others by 5% of every months. 
+</br>4. In case of violation of any condition the 1st party is eligible to end the agreement anytime during the agreement period.
+</br>5. Also the 2nd party is not permited any ilegal operation or anything else without the permission of the 1st party.
+
+</br>
+
+</br>We here by signing with free will with a stabale mental helath and with no force or pressure. </br></br></br></br></br></br>
+
+1st party </br>' 
+||COM_NAME|| '</br>'      
+||COM_ADDRESS|| '</br>'   
+||COM_PHONE||  '</br>'    
+||COM_EMAIL|| '</br>
+
+Signature </br></br></br></br></br></br>
+
+2nd party </br>'
+
+||SHOP_NAME|| '</br>'||
+'On behalf : '||CONTACT_PERSON|| '</br>'
+||OWNER_ADDRESS||  '</br>'
+||OWNER_PHONE||  '</br> 
+
+Signature </br></br></br></br></br></br>
+
+
+
+     </p></div>'; 
+
+
+    HTP.p(vHead||vBody);
+
+    
+END;
